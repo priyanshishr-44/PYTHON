@@ -1,0 +1,49 @@
+# Simple Expense Tracker - Windows Safe Version
+# Name: Priyanshi
+# Date: 10-10-2025
+# Assessment Title: Simple Expense Tracker
+
+print("Welcome to the Simple Expense Tracker!\n")
+
+categories = []
+amounts = []
+
+while True:
+    cat = input("Enter category: ")
+    amt_input = input("Enter amount for {}: ")
+    
+    try:
+        amt = float(amt_input)
+    except:
+        print("Invalid input! Enter a number.")
+        continue
+
+    categories.append(cat)
+    amounts.append(amt)
+
+    more = input("Add more? (yes/no): ").lower()
+    if more != "yes":
+        break
+
+total = sum(amounts)
+average = total / len(amounts) if amounts else 0
+
+# Print report
+print("\n------ Expense Report ------")
+for i in range(len(categories)):
+    print("{}. {} - Rs.{:.2f}".format(i+1, categories[i], amounts[i]))
+
+print("\nTotal: Rs.{:.2f}".format(total))
+print("Average: Rs.{:.2f}".format(average))
+
+# Save to file safely
+f = open("expenses_record.txt", "w")
+f.write("Expenses Record\n")
+f.write("---------------\n")
+for i in range(len(categories)):
+    f.write("{}. {} - Rs.{:.2f}\n".format(i+1, categories[i], amounts[i]))
+f.write("\nTotal: Rs.{:.2f}\nAverage: Rs.{:.2f}\n".format(total, average))
+f.close()
+
+print("\nAll expenses saved to 'expenses_records.txt'.")
+print("\n=========== Program Finished ===========")
